@@ -51,4 +51,4 @@ app.MapPost("/book", async ([FromBody] BookingRequest request) =>
 
 app.MapGet("/health", () => new HttpResponseMessage(HttpStatusCode.OK));
 
-app.Run();
+app.Run("http://0.0.0.0:80");
