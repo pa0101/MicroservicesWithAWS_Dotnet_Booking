@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Booking.Command.Models;
@@ -43,7 +44,8 @@ app.MapPost("/book", async ([FromBody] BookingRequest request) =>
         Status = BookingStatus.Pending
     };
 
-    using var dbClient = new AmazonDynamoDBClient();
+    var region = Environment.GetEnvironmentVariable("AWS_REGION");
+    using var dbClient = new AmazonDynamoDBClient(RegionEndpoint.GetBySystemName(region));
     using var dbContext = new DynamoDBContext(dbClient);
     await dbContext.SaveAsync(dto);
 });
