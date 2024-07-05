@@ -6,9 +6,8 @@ namespace Booking.Query.Models;
 public class Hotel
 {
     public string? Id { get; set; }
-
-    [DynamoDBHashKey("userId")] public string? UserId { get; set; }
-
+    [DynamoDBHashKey("userId")]
+    public string? UserId { get; set; }
     public string? Name { get; set; }
     public string? CityName { get; set; }
 }

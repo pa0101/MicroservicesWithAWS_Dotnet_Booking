@@ -5,14 +5,15 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Booking.Query.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddCors(c =>
     c.AddDefaultPolicy(p => p.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod()));
 
 var app = builder.Build();
-app.UseCors();
 
+app.UseCors();
 
 app.MapGet("/query", async (string? idToken) =>
 {
@@ -50,6 +51,7 @@ app.MapGet("/query", async (string? idToken) =>
         {
             IndexName = "Id-index"
         }).GetRemainingAsync();
+
         booking.HotelName = matchingHotel.FirstOrDefault()?.Name ?? "";
         booking.CityName = matchingHotel.FirstOrDefault()?.CityName ?? "";
     });
@@ -59,4 +61,4 @@ app.MapGet("/query", async (string? idToken) =>
 
 app.MapGet("/", () => true);
 
-app.Run();
+app.Run("http://0.0.0.0:80");
